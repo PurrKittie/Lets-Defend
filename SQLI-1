@@ -1,0 +1,45 @@
+# Incident Report - SOC127 SQL Injection Detected
+
+## Alert Information
+
+* Event ID: 235
+* Rule: SOC127 - SQL Injection Detected
+* Event Time: Mar 07, 2024 12:51 PM
+* Source IP: 118.194.247.28
+* Destination IP: 172.16.20.12
+* Destination Host: WebServer1000
+
+## Investigation Summary
+
+The alert was triggered due to a malicious HTTP request targeting the web server. Analysis of the request URL revealed multiple SQL Injection techniques including UNION SELECT statements, access attempts to information_schema tables, and an attempt to execute system commands through xp_cmdshell.
+
+Further investigation of the web server logs identified the User-Agent string "sqlmap/1.7.2", indicating the use of an automated SQL Injection exploitation tool.
+
+The source IP first accessed the website using a standard web browser and shortly afterward launched automated SQL Injection attempts against the application.
+
+## Evidence
+
+* SQL Injection payload detected.
+* UNION SELECT statement observed.
+* Attempted access to information_schema.
+* Attempted use of xp_cmdshell.
+* User-Agent identified as sqlmap/1.7.2.
+* Request reached the target web server and received HTTP 200 response.
+* Traffic originated from external source IP 118.194.247.28 targeting internal web server 172.16.20.12.
+
+## Impact Assessment
+
+No direct evidence was found confirming successful exploitation or data extraction. However, the activity represents a confirmed malicious SQL Injection attempt against the web application.
+
+## Classification
+
+* Web Attack
+* SQL Injection Attempt
+
+## Verdict
+
+True Positive
+
+## Escalation
+
+Escalation to Tier 2 is recommended to determine whether the attack resulted in unauthorized database access, command execution, or data exposure.
